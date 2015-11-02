@@ -1,27 +1,17 @@
 package com.example.tony.todoapp.entities;
 
-public class Todo {
-    private Integer id;
+import com.orm.SugarRecord;
+
+public class Todo extends SugarRecord<Todo> {
     private String name;
     private String description;
+
+    public Todo() {
+    }
 
     public Todo(String name, String description) {
         this.name = name;
         this.description = description;
-    }
-
-    public Todo(Integer id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getName() {

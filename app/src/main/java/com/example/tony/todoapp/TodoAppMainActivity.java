@@ -1,8 +1,8 @@
 package com.example.tony.todoapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -19,6 +19,7 @@ import java.util.List;
 public class TodoAppMainActivity extends AppCompatActivity {
 
     private ListView tasksList;
+    private TodoRepository repository;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class TodoAppMainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final TodoRepository repository = TodoRepository.getInstance();
+        repository = new TodoRepository();
 
         List<Todo> todos = repository.getAll();
         ArrayAdapter<Todo> todosAdapter = new ArrayAdapter<Todo>(this, android.R.layout.simple_list_item_1, todos);
@@ -38,10 +39,8 @@ public class TodoAppMainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TodoRepository.getInstance().add(new Todo("New one", "descriptin lorem"));
-                tasksList.invalidateViews();
-                Snackbar.make(view, "Added with success", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(TodoAppMainActivity.this, AddNewTodoActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -62,7 +61,7 @@ public class TodoAppMainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_clear) {
-            TodoRepository.getInstance().clearAll();
+            repository.clearAll();
             tasksList.invalidateViews();
             return true;
         }
