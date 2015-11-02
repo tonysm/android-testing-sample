@@ -8,9 +8,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.example.tony.todoapp.db.TodoRepository;
+import com.example.tony.todoapp.entities.Todo;
+
+import java.util.List;
 
 public class TodoAppMainActivity extends AppCompatActivity {
 
+    private ListView tasksList;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,11 +27,20 @@ public class TodoAppMainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final TodoRepository repository = TodoRepository.getInstance();
+
+        List<Todo> todos = repository.getAll();
+        ArrayAdapter<Todo> todosAdapter = new ArrayAdapter<Todo>(this, android.R.layout.simple_list_item_1, todos);
+        tasksList = (ListView) findViewById(R.id.tasksList);
+        tasksList.setAdapter(todosAdapter);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                TodoRepository.getInstance().add(new Todo("New one", "descriptin lorem"));
+                tasksList.invalidateViews();
+                Snackbar.make(view, "Added with success", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -44,6 +62,8 @@ public class TodoAppMainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_clear) {
+            TodoRepository.getInstance().clearAll();
+            tasksList.invalidateViews();
             return true;
         }
 
