@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TodoApp</string>
+    <string name="action_clear">Clear all</string>
+    <string name="title_activity_add_todo_item">Add a new item</string>
+    <string name="item_name_input">Item name</string>
+    <string name="item_desc_input">Description</string>
+</resources>
