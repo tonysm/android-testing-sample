@@ -8,8 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.tony.todoapp.db.TodoRepository;
 import com.example.tony.todoapp.entities.Todo;
@@ -40,6 +42,14 @@ public class TodoAppMainActivity extends AppCompatActivity {
 
         tasksList = (ListView) findViewById(R.id.tasksList);
         tasksList.setAdapter(listAdapter);
+
+        tasksList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Todo selected = listAdapter.getItem(position);
+                Toast.makeText(TodoAppMainActivity.this, "Clicked: " + selected.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
