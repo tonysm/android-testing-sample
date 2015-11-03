@@ -19,6 +19,7 @@ import java.util.List;
 public class TodoAppMainActivity extends AppCompatActivity {
 
     private ListView tasksList;
+    private ArrayAdapter<Todo> listAdapter;
     private TodoRepository repository;
     
     @Override
@@ -31,9 +32,14 @@ public class TodoAppMainActivity extends AppCompatActivity {
         repository = new TodoRepository();
 
         List<Todo> todos = repository.getAll();
-        ArrayAdapter<Todo> todosAdapter = new ArrayAdapter<Todo>(this, android.R.layout.simple_list_item_1, todos);
+        listAdapter = new ArrayAdapter<Todo>(
+            TodoAppMainActivity.this,
+            android.R.layout.simple_list_item_1,
+            todos
+        );
+
         tasksList = (ListView) findViewById(R.id.tasksList);
-        tasksList.setAdapter(todosAdapter);
+        tasksList.setAdapter(listAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +68,7 @@ public class TodoAppMainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_clear) {
             repository.clearAll();
+            listAdapter.clear();
             tasksList.invalidateViews();
             return true;
         }
