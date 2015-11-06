@@ -62,6 +62,15 @@ public class TodoAppMainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        Intent refresh = new Intent(TodoAppMainActivity.this, TodoAppMainActivity.class);
+        startActivity(refresh);
+        finish();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_todo_app_main, menu);
