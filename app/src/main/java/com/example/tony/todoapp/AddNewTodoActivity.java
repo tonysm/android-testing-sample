@@ -54,8 +54,7 @@ public class AddNewTodoActivity extends AppCompatActivity {
     }
 
     public void redirectToTodoIndex() {
-        Intent i = new Intent(AddNewTodoActivity.this, TodoAppMainActivity.class);
-        startActivity(i);
+        finish();
     }
 
 }
