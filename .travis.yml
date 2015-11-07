@@ -3,5 +3,3 @@ android:
   components:
     - build-tools-19.1.0
     - android-19
-    - extra
-    - sys-img-armeabi-v7a-android-19
