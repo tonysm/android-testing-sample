@@ -7,7 +7,7 @@ dependencies:
     - ~/.android
     - ~/android
   override:
-    - ./install-dependencies.sh
+    - ./install_deps_circleci.sh
 
 test:
   override:
