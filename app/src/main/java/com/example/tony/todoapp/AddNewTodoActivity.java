@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.tony.todoapp.db.TodoRepository;
 import com.example.tony.todoapp.entities.Todo;
+import com.example.tony.todoapp.usecases.AddTodo;
 
 public class AddNewTodoActivity extends AppCompatActivity {
 
@@ -38,8 +39,8 @@ public class AddNewTodoActivity extends AppCompatActivity {
                     .makeText(getApplicationContext(), "Saving...", Toast.LENGTH_SHORT)
                     .show();
 
-                Todo todo = new Todo(nameField.getText().toString(), descriptionField.getText().toString());
-                (new TodoRepository()).add(todo);
+                AddTodo handler = new AddTodo(new TodoRepository());
+                handler.handle(nameField.getText().toString(), descriptionField.getText().toString());
 
                 redirectToTodoIndex();
             }
