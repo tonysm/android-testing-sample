@@ -1,3 +1,7 @@
 language: android
-
-script: gradlew cAT
+android:
+  components:
+    - build-tools-23.0.1
+    - android-23
+    - extra
+    - sys-img-armeabi-v7a-android-23
